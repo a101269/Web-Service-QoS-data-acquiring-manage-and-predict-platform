@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css" href="/static/css/login_info.css" />
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+{#<div class="form-wrapper">#}
+    <div class="zhe"> </div>
+       <div class="outbox">
+{#        <div><span class="coll">收藏</span></div>#}
+    <div class="panel panel-blue" style="background:#fff;">
+ <div class="panel-heading">
+     账号登录</div>
+     <div class="panel-body pan">
+<div class="in">
+                  <form class="form-horizontal" action="." method="POST" >{% csrf_token %}
+{#	<form method="post" action=".">#}
+		{% if form.errors %}
+			{% include "users/partials/errors.html" %}
+		{% endif %}
+		{% csrf_token %}
+		{% for field in form %}
+			{% include "users/partials/field.html" %}
+		{% endfor %}
+		<br>
+                  <p style="padding-left: 20px"><a href="{% url 'users_password_reset' %}" id="forget">{% trans "忘记密码" %}</a>
+		<a href="{% url 'users_register' %}" id="reg">{% trans "注册" %}</a></p>
+		<div id="login" class="button-wrapper submit">
+			<input class="btn btn-blue " type="submit" value="{% trans '登录' %}" />
+{#               <button type="submit" class="btn btn-blue  btn-block">开始预测</button>#}
+		</div>
+		<input type="hidden" name="next" value="{{ next }}" />
+		<br>
+
+	</form>
+</div>
+     </div>
+    </div>
+</div>
+
+{% endblock %}

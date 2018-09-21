@@ -1,0 +1,78 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}预测结果{% endblock %}
+
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                预测结果</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS预测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">预测结果</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">预测结果</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+          <div id="generalTabContent" class="tab-content">
+              <div id="tab-edit" class="tab-pane fade in active">
+    <div>
+        <h5>目标WEB服务与事例库中符合条件的各事例的任务量局部相似度为:</h5>
+    </div>
+    <div class="xiaozi">
+    {% for a in sim_dict.sim1 %}
+        {{ a }},
+    {% endfor %}
+    </div>
+    <hr>
+    <div class="xiaozi">
+        <h5>目标WEB服务与事例库中符合条件的各事例的带宽局部相似度为:</h5>
+    </div>
+    <div>
+    {% for b in sim_dict.sim2 %}
+        {{ b }},
+    {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <h5>目标WEB服务与事例库中符合条件的事例的全局相似度分别为:</h5>
+    </div>
+    <div class="xiaozi">
+    {% for c in sim_dict.sim %}
+        {{ c }},
+    {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <h5>与标事例最为相似的5个历史事例相似度为:</h5>
+    </div>
+    <div class="xiaozi">
+    {% for d in sim_dict.sim_five %}
+        {{ d }},
+    {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <h5>对应的响应时间:</h5>
+    </div>
+    <div class="xiaozi">
+    {% for e in sim_dict.qos_five %}
+        {{ e }}ms,
+    {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <h5>预测结果:</h5>
+    </div>
+    <div>
+        {{ sim_dict.qos_pre }}ms
+    </div>
+              </div>
+          </div>
+{% endblock %}

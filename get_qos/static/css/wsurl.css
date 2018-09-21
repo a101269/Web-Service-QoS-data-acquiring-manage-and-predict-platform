@@ -1,0 +1,89 @@
+
+.site {
+    width:900px;
+    margin:50px auto;
+}
+
+.title {
+    margin-left:280px;
+    font-size: 14px;
+    color: #333;
+    width: 20%;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+}
+
+.tip {
+    float: left;
+    width: 80%;
+    height: auto;
+}
+
+.tip-input {
+    position: relative;
+    float: left;
+    margin: 10px 10px;
+    width: 700px;
+    height: 38px;
+}
+
+.tip-container {
+    float: left;
+    margin: 10px 10px;
+    width: 700px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #F4F4F4;
+    background-color: #eeeeee;
+
+}
+.tip-container:hover{
+    /*background-color:#31b0d5;*/
+    cursor:pointer;
+}
+
+.tip-container .jia {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    background: url('../images/jia.svg') no-repeat;
+    background-size: 20px 20px;
+}
+
+.house-tip {
+    display: block;
+    border: 1px solid #F4F4F4;
+    width: 700px;
+    height: 38px;
+}
+.biaoqian{
+    display: block;
+    border: 1px solid #F4F4F4;
+    width: 80px;
+    height: 38px;
+}
+
+.del {
+    position: absolute;
+    right: 5px;
+    top: 12px;
+    width: 20px;
+    height: 20px;
+    background: url('../images/del.svg') no-repeat;
+    background-size: 20px 20px;
+}
+
+.hang{
+    margin-bottom: 10px;
+}
+
+.inputwidth{
+    width: 80px;
+}
+.xiaozi{
+    font-size: 13px;
+}

@@ -1,0 +1,135 @@
+<link rel="stylesheet" type="text/css" href="/static/css/search_result.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/monitor_list.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                收藏列表</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">WEB服务管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">收藏列表</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">收藏列表</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+<div id="generalTabContent" class="tab-content">
+    <div id="tab-edit" class="tab-pane fade in active">
+	<table class="table table-hover form-group" style="table-layout: fixed;">
+		<tbody>
+            <tr><th>编号</th>
+                <th>地址</th>
+                <th>标签</th>
+                <th>服务提供商：</th>
+                <th>费用：</th>
+                <th>删除</th>
+            </tr>
+            {% for ws in ws_list %}
+			<tr>
+            <td>{{ ws.number }}</td>
+				<td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;"><a href="{% url 'ws_info' ws.number  %}">{{ ws.name }}</a></td>
+                <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">{{ ws.tag }}</td>
+                <td>{{ ws.supplier }}</td>
+                <td>{{ ws.price }}</td>
+                <td><span class="shanchu" onclick="RemoveTr(this)"><i class="iconfont">&#xe6db;</i></span></td>
+			</tr>
+            {% endfor %}
+		</tbody>
+    </table>
+</div>
+
+<div>
+   <span>
+       <a class="first_page" href=""> 第一页 |  &nbsp;</a>
+
+       {% if ws_list.has_previous %}
+           <a id="previous_page"  href="/webservice/collection/list/{{  ws_list.previous_page_number }}"> 上一页 &nbsp;</a>
+            <script  type="text/javascript" charset="UTF-8">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var name= decodeURI(GetQueryString("q"))
+    var cs=GetQueryString("csrfmiddlewaretoken");
+    document.getElementById("previous_page").href='/webservice/collection/list/{{  ws_list.previous_page_number }}/?csrfmiddlewaretoken='+cs+'&q='+name;
+ </script>
+           {% if  ws_list.has_next%}
+               <span> | </span>
+           {% endif %}
+       {% endif %}
+       {% if ws_list.has_next %}
+           <a id="next_page" href="/webservice/collection/list/{{  ws_list.next_page_number }}"> 下一页 &nbsp;</a>
+            <script  type="text/javascript" charset="UTF-8">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var name= decodeURI(GetQueryString("q"))
+    var cs=GetQueryString("csrfmiddlewaretoken");
+    document.getElementById("next_page").href='/webservice/collection/list/{{ ws_list.next_page_number }}/?csrfmiddlewaretoken='+cs+'&q='+name;
+ </script>
+       {% endif %}
+       <a id="end_page" href="/webservice/collection/list/{{ ws_list.end_index }}">| 末尾页 </a>
+    <script  type="text/javascript" charset="UTF-8">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var name= decodeURI(GetQueryString("q"))
+    var cs=GetQueryString("csrfmiddlewaretoken");
+    document.getElementById("end_page").href='/webservice/collection/list/{{ ws_list.end_index }}/?csrfmiddlewaretoken='+cs+'&q='+name;
+ </script>
+   </span>
+</div>
+</div>
+
+
+
+
+
+    <script  type="text/javascript" charset="UTF-8">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var name= decodeURI(GetQueryString("q"))
+    var cs=GetQueryString("csrfmiddlewaretoken");
+    document.getElementById("first_page").href='/webservice/dosearch/{{ ws_list.start_index }}/?csrfmiddlewaretoken='+cs+'&q='+name;
+
+
+    function RemoveTr(_this) {
+        var $trNode = $(_this).parent().parent();
+        var textContext = $trNode.find("td:first").text().trim();
+
+        var flag = confirm("确定删除地址\"" + textContext + "\"吗？删除后不可恢复！");
+        if (flag) {
+            $trNode.remove();
+            $.ajax({
+                url:'/webservice/collection/del/"',
+                data:{number:textContext },
+                type:'post',
+                traditional:true,    //这里必须设置
+                success:function (r, err) {
+                  if (err === 'success') {
+                      return location.assign('/webservice/collection/list/1');
+                  }
+                  else {
+                      return console.log(err);
+                  }
+              }
+                });
+        }
+    }
+ </script>
+{% endblock %}

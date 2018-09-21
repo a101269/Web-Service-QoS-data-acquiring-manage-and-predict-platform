@@ -1,0 +1,288 @@
+<link rel="stylesheet" type="text/css" href="/static/css/monitor_list.css" />
+{% extends 'bootemp.html' %}
+{% block title %}监测数据{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                采集结果</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS采集</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">采集结果</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">采集结果</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+ <div id="chart_container"></div>
+<div id="chart_container2"></div>
+    <br>
+    <div id="time_interval" style="font-weight: 700;font-size: 15px;text-align: center">
+
+{#        &nbsp&nbsp WS2:{{ info_dict }}#}
+    <div id="leidadiv" style="display:none"><button id="leida" >查看雷达图</button></div>
+    </div>
+
+    <script src="/static/js/highcharts.js"></script>
+    <script src="/static/js/highcharts-more.js"></script>
+    <script src="/static/js/exporting.js"></script>
+    <script src="/static/js/highthemes/grid.js"></script>
+    <script>
+        var series = new Array();
+        var timesRun = 0;
+        var fail_num = new Array();
+        var total_time = new Array();
+        var tuntu = new Array();
+        var aver = new Array();
+        var a=new Array(),b=new Array(),c=new Array(),d=new Array(),a2=new Array(),b2=new Array(),c2=new Array(),d2=new Array();
+        for(var j=0;j<3;j++){
+            total_time[j]=[];
+            tuntu[j]=[];
+            fail_num [j]=[];
+            a[j]=0;
+            b[j]=0;
+            c[j]=0;
+            a2[j]=0;
+            b2[j]=0;
+            c2[j]=0;
+        }
+
+
+
+    Highcharts.setOptions({
+    global: {
+        useUTC: false
+    }
+    });
+    Highcharts.chart('chart_container', {
+    chart: {
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+        events: {
+            load: function () {
+                for(var i=0;i<5;i++){
+                    series[i] = this.series[i];
+                }
+
+                var interval = setInterval(function () {
+                    var x; // current time
+                    var y= new Array();
+                    timesRun += 1;
+                    if(timesRun === 10){
+                        clearInterval(interval);
+                         $('#leidadiv').show();
+                        {#alert("采集完毕")#}
+                    }
+                    $.ajax({
+                        url: "/collectresponse/",
+                        dataType: "json",
+                        async:false,
+                        success: function (data) {
+                            x = (new Date()).getTime(); // current time
+                            for(var i=0;i<3;i++){
+                                y[i] = data.a[i];
+                                total_time[i].push(data.a[i]);
+                                tuntu[i].push(data.b[i]);
+                                fail_num[i].push(data.c[i]);
+                                {#console.log(total_time[0],total_time[1]);#}
+                                series[i].addPoint([x, y[i]], true, true);
+                                if(tuntu[0].length==10){
+                                    console.log(total_time[i]);
+                                    for (var j=total_time[i].length-1; j>=0; j--) {
+                                        if(total_time[i][j]=== undefined){
+                                            a[i]= undefined;
+                                            b[i]= undefined;
+                                            c[i]= undefined;
+                                            a2[i]= undefined;
+                                            b2[i]= undefined;
+                                            c2[i]= undefined;
+                                        }else{
+                                        a[i] += total_time[i][j];
+                                        b[i] += tuntu[i][j]/total_time[i][j];
+                                        c[i] += fail_num[i][j];
+                                        c2[i] += fail_num[i][j];
+                                        }
+                                    }
+                                    d[i]=data.d[i];
+                                    d2[i]=data.d[i];
+                                    console.log(a,b,c,d);
+                                    if(a[i]=== undefined){
+                                        a[i]= undefined;
+                                        b[i]= undefined;
+                                        a2[i]= undefined;
+                                        b2[i]= undefined;
+                                    }
+                                    else{
+                                        a[i]=a[i]/10;
+                                        b[i]=b[i]/10;
+                                        a2[i]= a[i];
+                                        b2[i]= b[i];
+                                    }
+
+                                    if(a[i] === undefined) { // 只能用 === 运算来测试某个值是否是未定义的
+                                    }else if(b[i]<1){
+                                        b[i]=30;
+                                    } else if(b[i]<3){
+                                        b[i]=60;
+                                    }else if(b[i]<5){
+                                        b[i]=70;
+                                    }else if(b[i]<10){
+                                        b[i]=80;
+                                    }else{
+                                        b[i]=100;
+                                    }
+                                    if(b[i] === undefined) { // 只能用 === 运算来测试某个值是否是未定义的
+                                    }else if(a[i]<100){
+                                        a[i]=100;
+                                    }
+                                     else if(a[i]<150){
+                                        a[i]=85;
+                                    }else if(a[i]<200){
+                                        a[i]=78;
+                                    }else if(b[i]<500){
+                                        a[i]=65;
+                                    }else if(b[i]<1000){
+                                        a[i]=50;
+                                    }else{
+                                        a[i]=35;
+                                    }
+                                    if(c[i] === undefined) { // 只能用 === 运算来测试某个值是否是未定义的
+                                    }else if(c[i]==0){
+                                        c[i]=100;
+                                    } else if(c[i]==1){
+                                        c[i]=65;
+                                    }else if(c[i]==2){
+                                        c[i]=60;
+                                    }else if(c[i]==3){
+                                        c[i]=20;
+                                    }else{
+                                        c[i]=10;
+                                    }
+                                    if(d[i] === undefined) { // 只能用 === 运算来测试某个值是否是未定义的
+                                    }else if(d[i]<0.01){
+                                        d[i]=100;
+                                    } else if(d[i]<0.1){
+                                        d[i]=90;
+                                    }else if(d[i]<0.2){
+                                        d[i]=68;
+                                    }else if(d[i]<0.3){
+                                        d[i]=62;
+                                    }else{
+                                        d[i]=60;
+                                    }
+                                    console.log(a,b,c,d);
+                                }
+
+                            }
+                        }
+                     })
+                },2000);
+            }
+        }
+    },
+    title: {
+        text: 'WEB服务QOS采集图像'
+    },
+    xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150
+    },
+    yAxis: {
+        title: {
+            text: '响应时间'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + '</b><br/>' +
+                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                Highcharts.numberFormat(this.y, 2)+"ms";
+        }
+    },
+    legend: {
+        enabled:true
+    },
+    exporting: {
+        enabled: false
+    },
+    series: [{
+      name: 'WS1',
+      data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -10; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    y: 0
+                });
+            }
+            return data;
+        }())
+    },{
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -10; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    y: 0
+                });
+            }
+            return data;
+        }()),
+        name: 'WS2'
+    },{
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -10; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    y: 0
+                });
+            }
+            return data;
+        }()),
+        name: 'WS3'
+    }]
+    });
+
+    $("#leida").click(function(){
+        $.ajax({
+            url:'/webservice/qos/collect/result2/"',
+            data:{a:a,b:b,c:c,d:d,a2:a2,b2:b2,c2:c2,d2:d2},
+            type:'post',
+            traditional:true,    //这里必须设置
+            success:function (r, err) {
+                if (err === 'success') {
+                    return location.assign('/webservice/qos/collect/result2/');
+                }
+                else {
+                    return console.log(err);
+                }
+            }
+        });
+    })
+    </script>
+{% endblock %}
+

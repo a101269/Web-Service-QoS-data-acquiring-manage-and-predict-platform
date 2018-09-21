@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                公告详情</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">公告系统</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">公告详情</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">公告详情</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+<div id="generalTabContent" class="tab-content">
+    <div id="tab-edit" class="tab-pane fade in active">
+    <div style="margin:auto"><h3 align="center">{{ content.title }}</h3></div>
+            <div style="margin-top: 20px;margin-bottom: 20px;" align="center">{{ content.add_time }}</div>
+                {% autoescape off %}
+                    {{ content.content }}
+                {% endautoescape %}
+
+    </div>
+</div>
+{% endblock %}

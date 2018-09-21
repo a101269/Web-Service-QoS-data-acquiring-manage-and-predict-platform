@@ -1,0 +1,85 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}添加Web服务{% endblock %}
+
+ {% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+             地址填写</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS采集</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#"> 地址填写</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">地址填写</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div id="generalTabContent" class="tab-content">
+        <div id="tab-edit" class="tab-pane fade in active">
+ <form class="form-horizontal" action="/webservice/qos/collect/result/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+     <div class="big">
+         <div class="little">
+        <div class="form-group"><label class="col-sm-3 control-label">WEB服务地址:</label>
+            <div class="col-sm-9 controls">
+                <div class="row">
+                    <div class="col-xs-9"><input required pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" type="url" class="form-control" name="urls" placeholder="URL"></div>
+                </div>
+            </div>
+        </div>
+      <div class="form-group"><label class="col-sm-3 control-label">价格：</label>
+          <div class="col-sm-9 controls">
+              <div class="row">
+                  <div class="col-xs-4"><input required id="datepicker-normal" type="text" class="form-control"  name="price" placeholder="n元/次"/></div>
+              </div>
+          </div>
+      </div>
+</div></div>
+
+                <br>
+            <div style="margin-left: 16%" id="tianjia" class="btn btn-orange ">继续添加</div>
+            <br><div>&nbsp</div>
+            <button  type="submit" class="btn btn-blue  btn-block">开始采集</button>
+
+            </form>
+       </div>
+</div>
+    <script>
+        $(function () {
+            i=0;
+        $('#tianjia').click(function () {
+            i++;
+            if(i<3){
+            var tipcon =
+                '<div class="little">'+
+             ' <div class="little">'+
+         '<div class="form-group"><label class="col-sm-3 control-label">WEB服务地址:</label>'+
+             '<div class="col-sm-9 controls">'+
+                 '<div class="row">'+
+                     '<div class="col-xs-9"><input type="url" class="form-control" name="urls" placeholder="URL" required pattern="http(s)?://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?" ></div>'+
+                 '</div>'+
+             '</div>'+
+       '  </div>'+
+      ' <div class="form-group"><label class="col-sm-3 control-label">价格：</label>'+
+          ' <div class="col-sm-9 controls">'+
+              ' <div class="row">'+
+                  ' <div class="col-xs-4"><input id="datepicker-normal"  required type="text" class="form-control"  name="price" placeholder="n元/次"/></div>'+
+              ' </div>'+
+          ' </div>'+
+      ' </div>'+
+ '</div>';
+                      $('.big').append(tipcon);}
+            else{
+                alert("最多添加3个web服务")
+            }
+        });
+    });
+
+    </script>
+{% endblock %}
+
+

@@ -1,0 +1,119 @@
+{% extends 'bootemp.html' %}
+{% block title %}个人信息修改{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                资料修改</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#"> 个人资料</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#"> 个人资料</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active"> 资料修改</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+
+<div id="appinfo">
+	<table class="table table-hover form-group">
+		<tbody>
+			<tr>
+				<td>电子邮箱（不可更改）</td>
+				<td><span v-text="email" class="form-control"></span></td><!-- v-text表示对Vue的变量进行输出，但是你不能修改，span标签专用 -->
+			</tr>
+			<tr>
+				<td>姓名</td>
+				<td><input v-model="name" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>性别</td>
+				<td><input v-model="sex" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>生日</td>
+				<td><input v-model="birthday"  type="date" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>职位</td>
+				<td><input v-model="job" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>工作地点</td>
+				<td><input v-model="job_city" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>学历</td>
+				<td><input v-model="xueli" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>毕业院校</td>
+				<td><input v-model="collage" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>毕业时间</td>
+				<td><input v-model="graduate_date"  type="date" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+			<tr>
+				<td>入职时间</td>
+				<td><input v-model="join_job_date"  type="date" class="form-control"></td><!-- v-model不但输出了Vue的变量，你对它的修改还会真的改动Vue里的变量 -->
+			</tr>
+		</tbody>
+    </table>
+    <button @click="submit" class="btn btn-blue  btn-block">保存</button>{#    @click=是Vue特有的接口，区别于html自带的onclick=#}
+</div>
+{% endblock %}
+
+{% block vuejs %}
+<script type="text/javascript">
+	var vm = new Vue(
+	{
+		el:'#appinfo',
+		data:{
+			email:'{{ request.user.email }}',
+			name:'{{ request.user.name }}',
+			sex:'{{ request.user.sex}}',
+			birthday:'{{ request.user.birthday}}',
+			job:'{{ request.user.job}}',
+			job_city:'{{ request.user.job_city}}',
+			xueli:'{{ request.user.xueli}}',
+			collage:'{{ request.user.collage}}',
+			graduate_date:'{{ request.user.graduate_date}}',
+			join_job_date:'{{ request.user.join_job_date}}'
+		},
+        methods:{
+		    submit:function(){
+		        data_to_send={
+		            name:this.name,
+                    sex:this.sex,
+                    birthday:this.birthday,
+                    job:this.job,
+                    job_city:this.job_city,
+                    xueli:this.xueli,
+                    collage:this.collage,
+                    graduate_date:this.graduate_date,
+                    join_job_date:this.join_job_date
+                };
+		        console.log(data_to_send);
+		        data_to_send=JSON.stringify(data_to_send);//ajax只能发送字符串
+		        console.log(data_to_send);
+		        //vue发送数据使用的是jquery的ajax解决方案，其标准格式为：$.post(url, data, function(r, err));
+		        $.post('/accounts/profile/',data_to_send,  	        	
+		        	function(r,err){
+		        		if(err==='success'){
+		        			alert('保存成功');
+		        			return location.assign('/');
+		        		}
+		        		else{
+		        			return console.log(err);
+		        		}
+		        	});
+            }
+        }
+	});
+</script>
+{% endblock %}

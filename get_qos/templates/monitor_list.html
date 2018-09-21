@@ -1,0 +1,148 @@
+<link rel="stylesheet" type="text/css" href="/static/css/monitor_list.css" />
+{#{% extends 'baseframe_second.html' %}#}
+{% extends 'bootemp.html' %}
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+{% block title %}WEB服务列表{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                监测列表</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">动态监测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">监测列表</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">监测列表</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+{#    <p></p>#}
+          <div id="generalTabContent" class="tab-content">
+              <div id="tab-edit" class="tab-pane fade in active">
+
+{#<h4 style="margin: auto;font-weight: bold;">监测列表</h4>#}
+{#              <br>#}
+	<table class="table table-hover form-group" style="table-layout: fixed;">
+		<tbody>
+            <tr>
+                <th>序号</th>
+                <th>地址</th>
+                <th>标签</th>
+                <th>监测状态</th>
+                <th>监测/停止监测</th>
+                <th>删除</th>
+            </tr>
+            {% for ws in ws_list %}
+			<tr>
+                <td>{{ ws.id }}</td>
+				<td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">{{ ws.ws_url }}</td>
+                <td>{{ ws.tag }}</td>
+                <td>{{ ws.is_monitor }}</td>
+                {% if not ws.is_monitor %}
+                <td style="color: blue"><input type="checkbox" name="is_moni" class="no" value="1" onclick="MoniYe(this)">进行监测</td>
+                     <td><span class="shanchu" onclick="RemoveTr(this)"><i class="iconfont">&#xe6db;</i></span></td>
+                {% else %}
+                <td style="color: red"><input type="hidden" name="quxiao"  class="ye" value="0"  onclick="MoniNo(this)">正在监测</td>
+             {% endif %}
+			</tr>
+            {% endfor %}
+		</tbody>
+    </table>
+    <button id="subm" class="btn btn-primary btn-block">确定</button>
+</div>
+          </div>
+
+<script type="text/javascript">
+    var YeMoni_Array=new Array();
+    var NoMoni_Array=new Array();
+    var DeMoni_Array=new Array();
+    var i=0,j=0,k=0;
+
+    function MoniYe(_this) {
+        var $trNode = $(_this).parent().parent();
+        var textContext = $trNode.find("td:first").text().trim();
+        if ($(_this).is(':checked')){
+            YeMoni_Array[j]=textContext;
+            j++;
+            console.log(YeMoni_Array)
+        }
+        else if (!$(_this).is(':checked')){
+            for(n=0;n<YeMoni_Array.length;n++){
+                if(YeMoni_Array[n]=textContext){
+                    YeMoni_Array.splice(n,1);
+                    console.log(YeMoni_Array);
+                }
+            }
+        }
+    }
+    function MoniNo(_this) {
+        var $trNode = $(_this).parent().parent();
+        var textContext = $trNode.find("td:first").text().trim();
+        if ($(_this).is(':checked')){
+            NoMoni_Array[k]=textContext;
+            k++;
+            console.log(NoMoni_Array)
+        }
+        else if (!$(_this).is(':checked')){
+            for(n=0;n<NoMoni_Array.length;n++){
+                if(NoMoni_Array[n]=textContext){
+                    NoMoni_Array.splice(n,1);
+                    console.log(NoMoni_Array);
+                }
+            }
+        }
+    }
+
+    function RemoveTr(_this) {
+        var $trNode = $(_this).parent().parent();
+        var textContext = $trNode.find("td:first").text().trim();
+        DeMoni_Array[i]=textContext;
+        i++;
+        var flag = confirm("确定删除\"" + textContext + "\"号地址吗？删除后不可恢复！");
+        if (flag) {
+            $trNode.remove();
+        }
+    }
+
+
+        $("#subm").click(function() {
+                var ye_number=$(".ye").length;
+                var no_number=$(".no").length;
+                console.log(ye_number);
+                console.log(no_number);
+                var new_yesnum=YeMoni_Array.length;
+                var new_cannum=NoMoni_Array.length;
+                var Ye_Array=JSON.stringify(YeMoni_Array);//ajax只能发送字符串
+                var No_Array=JSON.stringify(NoMoni_Array);//ajax只能发送字符串
+                var De_Array=JSON.stringify(DeMoni_Array);//ajax只能发送字符串
+                {#if( ye_number + new_yesnum - new_cannum > 5){#}
+                {#    alert("最多同时监控5个WEB服务！");#}
+                {# }#}
+                {#else{#}
+                $.ajax({
+                    url:'/webservice/monitor/addel/"',
+                    data:{yearry:Ye_Array, noarry:No_Array, dearry:De_Array},
+                    type:'post',
+                    traditional:true,    //这里必须设置
+                    success:function (r, err) {
+                  if (err === 'success') {
+                      {#alert('设置成功，点击查看');#}
+                      return location.assign('/webservice/monitor/list/');
+                  }
+                  else {
+                      return console.log(err);
+                  }
+              }
+                });}
+            {# }#}
+            )
+
+</script>
+{% endblock %}
+
+

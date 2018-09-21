@@ -1,0 +1,144 @@
+<link rel="stylesheet" type="text/css" href="/static/css/ws_info.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                WEB服务详细信息</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">WEB服务</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">WEB服务详细信息</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">WEB服务详细信息</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+        <div class="bigbox">
+{#        <div><span class="coll">收藏</span></div>#}
+    <div class="panel panel-orange" style="background:#fff;">
+ <div class="panel-heading">
+     基础信息</div>
+     <div class="panel-body pan">
+<div>
+
+        <span class="infp_span">服务名称：{{ info.name }}</span>
+        <span class="infp_span">服务编号：{{ info.number }}</span>
+    </div>
+    <div>
+        <span class="infp_span">服务类别：{{ info.type }}</span>
+        <span class="infp_span">服务标签：{{ info.tag }}</span>
+   </div>
+    <div>
+        <span class="infp_span">提供商：{{ info.supplier }}</span>
+        <span class="infp_span">更新日期：{{ info.register_date }}</span>
+    </div>
+    <div>
+        <span class="infp_span">服务特色：{{ info.feature }}</span>
+     </div>
+    <div>
+        <span class="infp_span">服务描述：<br>{{ info.description }}</span>
+        <span class="infp_span coll" id="coll"> {{ did_coll }}</span>
+        <span class="infp_span coll" id="moni"> {{ did_moni }}</span>
+     </div>
+</div>
+     </div></div>
+    <div class="bigbox">
+    <div class="panel panel-green" style="background:#fff;">
+ <div class="panel-heading">
+     调用信息</div>
+     <div class="panel-body pan">
+<div>
+        <span class="infp_span">服务地址：{{ info.ws_address }}</span>
+        <span class="infp_span">请求方式：{{ info.request_method }}</span>
+    </div>
+    <div>
+        <span class="infp_span">返回类型：{{ info.result_type }}</span>
+        <span class="infp_span">请求示例：{{ info.example }}</span>
+   </div>
+    <div>
+        <span class="infp_span">价格：{{ info.price }}元/次</span>
+    </div>
+    <div>
+        <span class="infp_span">请求参数：{{ info.return_parameter }}</span>
+           <span class="infp_span">返回参数：{{ info.return_parameter}}</span>
+     </div>
+     <div>
+
+     </div>
+</div>
+     </div></div>
+    <script>
+$(document).ready(function(){
+    $("#coll").hover(function(){
+    $("#coll").css("background-color","green");
+},function(){
+    $("#coll").css("background-color","#ff7700;");
+});
+    $("#moni").hover(function(){
+    $("#moni").css("background-color","green");
+},function(){
+    $("#moni").css("background-color","#ff7700;");
+});
+    $("#coll").click(function(){
+        if($.trim($("#coll").text())==$.trim("收藏服务")){
+            $("#coll").text("取消收藏");
+            $.ajax({
+                url:'/webservice/collection/add/"',
+                data:{number:{{ info.number }}},
+                type:'post',
+                traditional:true,    //这里必须设置
+                success:function (r, err) {
+                  if (err === 'success') {
+                      alert('收藏成功');
+                  }
+                  else {
+                      return console.log(err);
+                  }
+              }
+                });
+        }
+        else{
+           $("#coll").text("收藏服务");
+            $.ajax({
+                url:'/webservice/collection/del/"',
+                data:{number:{{ info.number }}},
+                type:'post',
+                traditional:true,    //这里必须设置
+                success:function (r, err) {
+                  if (err === 'success') {
+                      {#alert('收藏成功');#}
+                  }
+                  else {
+                      return console.log(err);
+                  }
+              }
+                });
+        }
+    });
+    $("#moni").click(function(){
+        if($.trim($("#moni").text())==$.trim("加入监测列表")){
+            $("#moni").text("已在监测列表");
+            $.ajax({
+                url:'/webservice/moin/add/"',
+                data:{number:{{ info.number }}},
+                type:'post',
+                traditional:true,    //这里必须设置
+                success:function (r, err) {
+                  if (err === 'success') {
+                      alert('成功加入');
+                  }
+                  else {
+                      return console.log(err);
+                  }
+              }
+                });
+        }
+    })
+});
+   </script>
+{% endblock %}

@@ -1,0 +1,89 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}添加Web服务{% endblock %}
+
+ {% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+             地址填写</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS采集</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#"> 地址填写</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">地址填写</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="generalTabContent" class="tab-content">
+        <div id="tab-edit" class="tab-pane fade in active">
+            <div id="appurl">
+  <div class="form-horizontal">
+        <div class="form-group"><label class="col-sm-3 control-label">WEB服务地址:</label>
+            <div class="col-sm-9 controls">
+                <div class="row">
+                    <div class="col-xs-9"><input type="url" class="form-control" required pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?"  v-model="urls1" placeholder="URL"></div>
+                </div>
+            </div>
+        </div>
+      <div class="form-group"><label class="col-sm-3 control-label">价格：</label>
+          <div class="col-sm-9 controls">
+              <div class="row">
+                  <div class="col-xs-4"><input id="datepicker-normal" type="text" class="form-control"  v-model="price" placeholder="n元/次"/></div>
+              </div>
+          </div>
+      </div>
+                <br>
+            <button  @click="submit" class="btn btn-blue  btn-block">开始采集</button>
+       </div>
+        </div>
+    </div>
+    </div>
+
+<div style="text-align:center;">
+</div>
+{% endblock %}
+{% block vuejs %}
+<script type="text/javascript">
+
+	var vm = new Vue(
+	{
+		el:'#appurl',
+		data:{
+		    urls1:'',
+            price:''
+            {#urls2:'',#}
+		},
+        methods:{
+		    submit:function(){
+		        data_to_send={
+                    urls1:this.urls1,
+                    price:this.price
+                };
+                console.log(data_to_send);
+		        data_to_send=JSON.stringify(data_to_send);//ajax只能发送字符串
+		        console.log(data_to_send);
+		        //vue发送数据使用的是jquery的ajax解决方案，其标准格式为：$.post(url, data, function(r, err));
+		        $.post('/webservice/qos/gather/',data_to_send,
+		        	function(r,err){
+		        		if(err==='success'){
+		        			alert('数据采集完毕，点击查看');
+		        			return location.assign('/webservice/qos/gather/');
+		        		}
+		        		else{
+		        			return console.log(err);
+		        		}
+		        	});
+            }
+        }
+	});
+</script>
+{% endblock %}
+
+
+

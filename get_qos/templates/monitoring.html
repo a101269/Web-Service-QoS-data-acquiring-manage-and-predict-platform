@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="/static/css/monitor_list.css" />
+{% extends 'bootemp.html' %}
+{% block title %}监测数据{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                监测图像</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">动态监测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">监测图像</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">监测图像</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+ <div id="chart_container"></div>
+    <br>
+    <div id="time_interval" style="font-weight: 700;font-size: 15px;text-align: center">
+        监测周期：{{ tagtime.t }}s &nbsp&nbsp WS1:{{ tagtime.tag1 }}
+        &nbsp&nbsp WS2:{{ tagtime.tag2 }}&nbsp &nbspWS3:{{ tagtime.tag3 }}
+        &nbsp &nbspWS4:{{ tagtime.tag4 }}&nbsp &nbspWS5:{{ tagtime.tag5 }}
+    </div>
+
+    <script src="/static/js/highcharts.js"></script>
+    <script src="/static/js/exporting.js"></script>
+    <script src="/static/js/highthemes/grid.js"></script>
+    <script src="/static/js/monitoring.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+
+{% endblock %}

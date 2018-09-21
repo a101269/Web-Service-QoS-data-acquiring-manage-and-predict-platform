@@ -1,0 +1,46 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}添加Web服务{% endblock %}
+
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                添加服务</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">动态监测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">添加服务</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">添加服务</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form action="/webservice/monitor/list/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="site" id="appurl">
+        	<div class="title"><h4>Web服务：</h4></div>
+            <div class="tip_div">
+            <div class="tip">
+                <div class="tip-input"> <input type="text" class="biaoqian" placeholder="标签" name="tag"></div>
+                <div class="tip-input">
+                    <input type="url" class="house-tip" placeholder="接口地址" required pattern="http(s)?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?" name="address">
+                    <span class="del"></span>
+                </div>
+            </div></div>
+            <div class="tip-container" id="tianjia"><span class="jia"></span>添加</div>
+            <div class="tip-container">
+                <button type="submit" class="btn btn-primary"style="cursor:pointer;">加入监控列表</button>
+            </div>
+        </div>
+    </form>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/wsurl.js"></script>
+<div style="text-align:center;">
+</div>
+{% endblock %}
+
+

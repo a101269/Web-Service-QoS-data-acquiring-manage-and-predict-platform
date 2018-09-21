@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="/static/css/prettify.css" xmlns="http://www.w3.org/1999/html"/>
+<link rel="stylesheet" href="/static/css/attributes.css" />
+{% extends 'bootemp.html' %}
+{% block title %}属性管理{% endblock %}
+
+
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                系统设置</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">系统设置</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">系统设置</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <form action="/webservice/qos/attributes/setting/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <h4 id="demo-undo-redo">选择要进行采集的属性：</h4>
+    <br>
+	<div class="row">
+		<div class="col-xs-5">
+
+            <label for="undo_redo"></label>
+			<select name="from" id="undo_redo" class="form-control" size="13" multiple="multiple">
+				<option value="1">HTTP状态码</option>
+				<option value="2">DNS解析时间</option>
+				<option value="3">建立连接时间</option>
+				<option value="4">准备传输时间</option>
+				<option value="5">传输开始时间</option>
+				<option value="6">传输总时间</option>
+				<option value="7">重定向消耗时间</option>
+				<option value="8">HTTP头部大小</option>
+				<option value="9">下载数据包大小</option>
+				<option value="10">平均下载速度</option>
+				<option value="11">上传数据包大小</option>
+				<option value="12">平均上传速度</option>
+			</select>
+		</div>
+
+		<div class="col-xs-2">
+			<button type="button" id="undo_redo_undo" class="btn btn-primary btn-block">撤销</button>
+			<button type="button" id="undo_redo_rightAll" class="btn btn-default btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+			<button type="button" id="undo_redo_rightSelected" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+			<button type="button" id="undo_redo_leftSelected" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+			<button type="button" id="undo_redo_leftAll" class="btn btn-default btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+			<button type="button" id="undo_redo_redo" class="btn btn-warning btn-block">取消撤销</button>
+		</div>
+
+		<div class="col-xs-5">
+            <label for="to"></label>
+			<select name="to" id="undo_redo_to" class="form-control" size="13" multiple="multiple"></select>
+        </div>
+    </div>
+    <br><span><h4>选择两次监测的时间间隔：</h4></span>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios3" value="5" checked> 5秒
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios3" value="30" checked> 30秒
+	    </label>
+	    <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="60"> 1分钟
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="120"> 2分钟
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="300"> 5分钟
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="600"> 10分钟
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="900"> 15分钟
+	    </label>
+        <br>
+         <br>
+    <input type="submit" value="确定" class="btn btn-primary btn-block"/>
+    </form>
+{#{% endblock %}#}
+
+	<script type="text/javascript" src="/static/js/prettify.min.js"></script>
+	<script type="text/javascript" src="/static/js/multiselect.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+	    	// make code pretty
+	    	window.prettyPrint && prettyPrint();
+
+	    	if ( window.location.hash ) {
+	    		scrollTo(window.location.hash);
+	    	}
+
+	    	$('.nav').on('click', 'a', function(e) {
+	    		scrollTo($(this).attr('href'));
+	    	});
+	    	$('#multiselect').multiselect();
+	    	$('.multiselect').multiselect();
+	    	$('.js-multiselect').multiselect({
+	    		right: '#js_multiselect_to_1',
+	    		rightAll: '#js_right_All_1',
+	    		rightSelected: '#js_right_Selected_1',
+	    		leftSelected: '#js_left_Selected_1',
+	    		leftAll: '#js_left_All_1'
+	    	});
+
+	    	$('#keepRenderingSort').multiselect({
+	    		keepRenderingSort: true
+	    	});
+
+	    	$('#undo_redo').multiselect();
+	    });
+
+	    function scrollTo( id ) {
+	    	if ( $(id).length ) {
+	    		$('html,body').animate({scrollTop: $(id).offset().top - 40},'slow');
+	    	}
+	    }
+	</script>
+{% endblock %}

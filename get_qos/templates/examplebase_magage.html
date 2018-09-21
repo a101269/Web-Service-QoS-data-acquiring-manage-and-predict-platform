@@ -1,0 +1,61 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}事例库管理{% endblock %}
+
+
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                事例添加</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">事例库管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">事例添加</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">事例添加</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <form action="/examplebase/manage/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="man">
+            <div class="hang">
+            <sapn>
+                &nbsp&nbsp服务类型：<select name="types">
+                    <option value="天气"selected>天气</option>
+                    <option value="新闻">新闻</option>
+                    <option value="菜谱">菜谱</option>
+                    <option value="企业查询">企业查询</option>
+                    <option value="身份核验">身份核验</option>
+                    <option value="交通查询">交通查询</option>
+                </select>
+            </sapn>
+            <span>
+                &nbsp&nbsp网速：<input type="text" name="bandwidth" class="inputwidth">Mb/s
+            </span>
+            <span>
+                 &nbsp&nbsp任务量：<input type="text" name="workload" class="inputwidth">Kb
+            </span>
+            <span>
+                 &nbsp&nbsp响应时间：<input type="text" name="qos" class="inputwidth">ms
+            </span>
+        </div></div>
+        <div class="tip-container" id="tian"><span class="jia"></span>添加</div>
+        <div class="tip-container">
+            <button type="submit" class="btn btn-primary"style="cursor:pointer;">保存</button>
+        </div>
+    </form>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/ebmagage.js"></script>
+<div style="text-align:center;">
+</div>
+{% endblock %}
+
+

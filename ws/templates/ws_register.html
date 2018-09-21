@@ -1,0 +1,202 @@
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                WEB服务注册</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">WEB服务管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">WEB服务注册</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">WEB服务注册</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+         <form action="/webservice/info/save/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+             <div style="margin: auto;width: 95%">
+ <div class="panel panel-blue" style="background:#fff;">
+ <div class="panel-heading">
+     基础信息</div>
+     <div class="panel-body pan">
+
+         <div class="form-body pal">
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">服务编号：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input readonly="readonly" value="{{ number }}" id="datepicker-normal" type="text" class="form-control"  name="number"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">服务名称：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input id="datepicker-normal" required type="text" class="form-control"  name="name" />
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">服务类别：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <select class="form-control" name="type">
+                                       <option value="天气"selected>获得标准数据</option>
+                                       <option value="新闻">新闻</option>
+                                       <option value="菜谱">菜谱</option>
+                                       <option value="企业查询">企业查询</option>
+                                       <option value="身份核验">身份核验</option>
+                                       <option value="交通查询">交通查询</option>
+                                        </select>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">服务标签：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input id="datepicker-normal" required  type="text" class="form-control"  name="tag"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">供应商：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input id="datepicker-normal" required  type="text" class="form-control"  name="supplier"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">服务特色：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input id="datepicker-normal"  required type="text" class="form-control"  name="feature" />
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+
+              <div class="form-group">
+                  <label class="col-sm-3 control-label">服务描述：</label>
+                  <div class="form-group mbn">
+                      <textarea  required  rows="5" name="description" class="form-control"></textarea>
+                  </div>
+              </div>
+         </div>
+         </div>
+ </div>
+<div class="panel panel-yellow" style="background:#fff;">
+ <div class="panel-heading">调用信息</div>
+     <div class="panel-body pan">
+         <div class="form-body pal">
+
+           <div class="row">
+                 <div class="col-md-9">
+                      <div class="form-group"><label class="col-sm-2 control-label">服务地址：</label>
+                          <div class="col-sm-7 controls">
+                              <div class="row">
+                                  <input  required id="datepicker-normal" type="text" class="form-control"  name="ws_address"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">请求方式：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input required  id="datepicker-normal" type="text" class="form-control"  name="request_method"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">返回类型：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input required  id="datepicker-normal" type="text" class="form-control"  name="result_type"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+
+             </div>
+             <br>
+                 <div class="row">
+                 <div class="col-md-9">
+                      <div class="form-group"><label class="col-sm-2 control-label">请求示例：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input required  id="datepicker-normal" type="text" class="form-control"  name="example"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">价格(n元/次)：</label>
+                          <div class="col-sm-3 controls">
+                              <div class="row">
+                                  <input  required id="datepicker-normal" type="text" class="form-control"  name="price"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+             </div>
+             <br>
+             <div class="row">
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">请求参数：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input required  id="datepicker-normal" type="text" class="form-control"  name="input_parameter"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+                 <div class="col-md-6">
+                      <div class="form-group"><label class="col-sm-3 control-label">返回参数：</label>
+                          <div class="col-sm-8 controls">
+                              <div class="row">
+                                  <input  required id="datepicker-normal" type="text" class="form-control"  name="return_parameter"/>
+                              </div>
+                          </div>
+                      </div>
+                 </div>
+
+             </div>
+       </div>
+   </div>
+</div>
+
+             <div class="form-actions text-right pal" style="margin: auto">
+                 <button type="submit" class="btn btn-primary btn-block">提交</button>
+             </div>
+  </div>
+         </form>
+{% endblock %}

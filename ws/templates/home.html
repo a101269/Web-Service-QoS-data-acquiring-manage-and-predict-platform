@@ -1,0 +1,75 @@
+<link rel="stylesheet" type="text/css" href="/static/css/search_result.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+{% endblock %}
+{% block content %}
+ <div class="page-content">
+     <div id="tab-general">
+         <div class="row mbl">
+             <div class="col-lg-12">
+                 <div class="col-md-12">
+                     <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;">
+                     </div>
+                 </div>
+             </div>
+
+             <div class="col-lg-12">
+               <div class="col-lg-8">
+                <img src="/static/images/home.png/" style="width: 100%; height:340px; border:0">
+                     </div>
+                     <div class="col-lg-4">
+                         <h4>平台公告</h4>
+                            {% for no in notice_list|slice:":6" %}
+                                 <div class="no_title">
+{#                                     {{ no.title }}#}
+                                    <a href="{% url 'announcement_content' no.id %}">{{ no.title }}</a></div>
+{#                                   <div>{{ no.add_time|date:"Y-m-d H:i:s" }}</div>#}
+                                 <div class="no_time">{{ no.add_time|date:"Y-m-d" }}</div>
+                            {% endfor %}
+                     </div>
+                 </div>
+
+{#                 <div class="row">#}
+                     <div class="col-lg-12">
+                         <hr>
+                         <h3 class="mbxl">Web服务提供商</h3>
+
+                         <div class="row">
+                             <div class="col-lg-3">
+                                 <div class="member-team"><img src="/static/images/jd.png/" class="img-responsive"/>
+                                     <h3><a target="_blank" href="https://wx.jdcloud.com/market/api/12436">京东万象</a>
+                                         <small>领先的数据服务商城</small>
+                                     </h3>
+                                 </div>
+                             </div>
+                             <div class="col-lg-3">
+                                 <div class="member-team"><img src="/static/images/juhe.png/" class="img-responsive"/>
+
+                                     <h3><a target="_blank" href="https://www.juhe.cn">聚合数据</a>
+                                         <small>Web服务数据方案与技术支持</small>
+                                     </h3>
+                                 </div>
+                             </div>
+                             <div class="col-lg-3">
+                                 <div class="member-team"><img src="/static/images/apistore.jpg/" class="img-responsive"/>
+
+                                     <h3><a target="_blank" href="http://apistore.baidu.com/">API Store</a>
+                                         <small>为开发者提供最全面的API服务</small>
+                                     </h3>
+                                 </div>
+                             </div>
+                             <div class="col-lg-3">
+                                 <div class="member-team"><img src="/static/images/jh.png/" class="img-responsive"/>
+
+                                     <h3><a target="_blank" href="http://www.idataapi.cn">IDataAPI</a>
+                                         <small>API开放平台，就在IDataAPI</small>
+                                     </h3>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'bootemp.html' %}
+{% block title %}采集到的Web服务QoS数据{% endblock %}
+ {% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                记录下载</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS监测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#"> 记录下载</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active"> 记录下载</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+<div>
+    <p><a href="/output" style="font-size:25px">导出qos_records.xls</a></p>
+</div>
+{% endblock %}

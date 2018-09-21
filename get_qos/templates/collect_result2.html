@@ -1,0 +1,90 @@
+<link rel="stylesheet" type="text/css" href="/static/css/monitor_list.css" />
+{% extends 'bootemp.html' %}
+{% block title %}监测数据{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                采集结果</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS采集</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">采集结果</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">采集结果</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+
+<div id="chart_container2"></div>
+    <br>
+    <div id="time_interval" style="font-weight: 500;font-size: 12px;">
+        WS1： 平均响应时间{{  a2.0 }}ms &nbsp&nbsp 吞吐量:{{ b2.0 }}Kb/ms &nbsp&nbsp 失败次数：{{ c2.0 }} &nbsp&nbsp 价格：{{ d2.0 }}元/次
+        <br>
+        WS2： 平均响应时间{{  a2.1 }}ms &nbsp&nbsp 吞吐量:{{ b2.1 }}Kb/ms &nbsp&nbsp 失败次数：{{ c2.1 }} &nbsp&nbsp 价格：{{ d2.1 }}元/次
+        <br>
+        WS3： 平均响应时间{{  a2.2 }}ms &nbsp&nbsp 吞吐量:{{ b2.2 }}Kb/ms &nbsp&nbsp 失败次数：{{ c2.2 }} &nbsp&nbsp 价格：{{ d2.2 }}元/次
+    </div>
+
+    <script src="/static/js/highcharts.js"></script>
+    <script src="/static/js/highcharts-more.js"></script>
+    <script src="/static/js/exporting.js"></script>
+    <script src="/static/js/highthemes/grid.js"></script>
+   <script>
+
+       var series = new Array();
+       var chart2 = Highcharts.chart('chart_container2', {
+		chart: {
+				polar: true,
+				type: 'line'
+		},
+		title: {
+				text: 'QoS综合评估',
+				x: -80
+		},
+		pane: {
+				size: '80%'
+		},
+
+		xAxis: {
+				categories: ['响应时间', '吞吐量', '成功率', '价格'],
+				tickmarkPlacement: 'on',
+				lineWidth: 0
+		},
+		yAxis: {
+				gridLineInterpolation: 'polygon',
+				lineWidth: 0,
+				min: 0
+		},
+		tooltip: {
+				shared: true,
+				pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+		},
+		legend: {
+				align: 'right',
+				verticalAlign: 'top',
+				y: 70,
+				layout: 'vertical'
+		},
+		series: [{
+				name: 'WS1',
+				data: [{{ a.0 }},{{ b.0 }},{{ c.0 }},{{ d.0 }}],
+				pointPlacement: 'on'
+		}, {
+				name: 'WS2',
+                data: [{{ a.1 }},{{ b.1 }},{{ c.1 }},{{ d.1 }}],
+				pointPlacement: 'on'
+		}, {
+				name: 'WS3',
+				data: [{{ a.2 }},{{ b.2 }},{{ c.2 }},{{ d.2 }}],
+				pointPlacement: 'on'
+		}]
+});
+
+    </script>
+{% endblock %}
+

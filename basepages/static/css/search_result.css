@@ -1,0 +1,69 @@
+.result_box{
+    margin: auto;
+  width: 85%;
+}
+
+.result{
+    /*width: 80%;*/
+    /*background-color: white;*/
+    overflow: hidden;
+}
+.blueline{
+    height:1px;border:none;border-top:5px ridge ;
+}
+.sou{
+    float: left;
+    margin-right: 20px;
+    overflow: hidden;
+}
+.wsname{
+    font-size: 18px;
+    color:red;
+    margin: 10px;
+}
+.wstag{
+    font-size: 14px;
+    color:#47a447;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.tagname{
+    font-weight: 500;
+    color:#8b8b8b;
+    margin-right: 15px;
+}
+.description{
+    font-size: 13px;
+    color:black;
+    margin: 10px;
+}
+.other_info{
+    float: right;
+    font-size: 12px;
+    margin: 10px;
+}
+.other_info span{
+    margin-right: 10px;
+}
+.supplier{
+    color: #1f68b1;
+}
+.price{
+    color:red;
+}
+
+.result_type{
+    color:#47a447;
+}
+.recommend_name{
+    font-size: 18px;
+    color:red;
+    margin: 10px;
+}
+
+.no_title{
+     margin-bottom: 5px;
+}
+.no_time{
+     margin-bottom: 5px;
+}

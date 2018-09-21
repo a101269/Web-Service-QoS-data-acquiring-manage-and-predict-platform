@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="/static/css/prettify.css" xmlns="http://www.w3.org/1999/html"/>
+<link rel="stylesheet" href="/static/css/attributes.css" />
+{% extends 'bootemp.html' %}
+{% block title %}属性管理{% endblock %}
+
+
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                监测设置</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">系统设置</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">系统设置</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <form action="/webservice/qos/monitor/setting/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <br><span><h4>选择监测天数：</h4></span>
+        <label class="radio-inline">
+		<input type="radio" name="total_time" id="optionsRadios3" value="1" checked> 1天
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="total_time" id="optionsRadios3" value="7" > 7天
+	    </label>
+	    <label class="radio-inline">
+		<input type="radio" name="total_time" id="optionsRadios4" value="15">15天
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="total_time"id="optionsRadios4" value="30"> 1个月
+	    </label>
+        <br>
+    <br><span><h4>选择两次监测的时间间隔：</h4></span>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios3" value="1"> 1分钟（测试）
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios3" value="15" checked> 15分钟
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios3" value="30"> 30分钟
+	    </label>
+	    <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="60"> 1小时
+	    </label>
+        <label class="radio-inline">
+		<input type="radio" name="interval" id="optionsRadios4" value="120"> 2小时
+	    </label>
+        <br>
+         <br>
+    <input type="submit" value="确定" onclick="succ(this)" class="btn btn-primary btn-block"/>
+    </form>
+{#{% endblock %}#}
+
+	<script type="text/javascript" src="/static/js/prettify.min.js"></script>
+	<script type="text/javascript" src="/static/js/multiselect.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+	    	// make code pretty
+	    	window.prettyPrint && prettyPrint();
+
+	    	if ( window.location.hash ) {
+	    		scrollTo(window.location.hash);
+	    	}
+
+	    	$('.nav').on('click', 'a', function(e) {
+	    		scrollTo($(this).attr('href'));
+	    	});
+	    	$('#multiselect').multiselect();
+	    	$('.multiselect').multiselect();
+	    	$('.js-multiselect').multiselect({
+	    		right: '#js_multiselect_to_1',
+	    		rightAll: '#js_right_All_1',
+	    		rightSelected: '#js_right_Selected_1',
+	    		leftSelected: '#js_left_Selected_1',
+	    		leftAll: '#js_left_All_1'
+	    	});
+
+	    	$('#keepRenderingSort').multiselect({
+	    		keepRenderingSort: true
+	    	});
+
+	    	$('#undo_redo').multiselect();
+	    });
+
+	    function scrollTo( id ) {
+	    	if ( $(id).length ) {
+	    		$('html,body').animate({scrollTop: $(id).offset().top - 40},'slow');
+	    	}
+	    }
+	    function succ(_this) {
+	        alert("设置成功！")
+
+        }
+	</script>
+{% endblock %}

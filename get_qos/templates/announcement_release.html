@@ -1,0 +1,55 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}公告发布{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                填写公告</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">公告系统</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">填写公告</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">填写公告</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div id="generalTabContent" class="tab-content">
+        <div id="tab-edit" class="tab-pane fade in active">
+{#            <form action="/announcement/save/" method="POST" enctype="multipart/form-data">{% csrf_token %}#}
+            <form class="form-horizontal" action="/announcement/save/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group"><label class="col-sm-3 control-label">标题</label>
+                    <div class="col-sm-9 controls">
+                        <div class="row">
+                            <div class="col-xs-9"><input type="text" placeholder="请输入标题" class="form-control" name="title"/></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"><label class="col-sm-3 control-label">公告正文</label>
+                    <div class="col-sm-9 controls">
+                        <div class="row">
+                            <div class="col-xs-9"><textarea name="content"></textarea></div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-blue btn-block" onclick="succ(this)">发布</button>
+
+            </form>
+        </div>
+    </div>
+<script src="/static/js/tinymce/tinymce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        mode : "textareas",
+        height:"300px"
+    });
+    function succ(_this) {
+alert("发布成功")
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+.zhe{
+     width:100%;
+     height:100%;
+     position:fixed;
+     top:0;
+     left:0;
+     z-index:1;
+     display:block;
+     background-color:#000;
+     opacity:0.3;
+}
+.outbox{
+    display:block;
+    position:absolute;
+    /*background-color: #eeeeee;*/
+    z-index:2;/*等级2*/
+    width: 50%;
+    margin: auto;
+    left:25%;
+    top:20%;
+
+    /*background: url('../images/jia.svg') no-repeat;*/
+}
+.in{
+    padding-top: 30px;
+    padding-left: 100px;
+    /*padding-right: 50px;*/
+    background-image: url("../images/bg/bg3.png");
+}
+#login{
+    margin: auto;
+    padding-left: 100px;
+}
+#forget{
+    /*float: right;*/
+}
+#reg{
+    float:left;
+    margin-right: 160px;
+}

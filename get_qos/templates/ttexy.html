@@ -1,0 +1,52 @@
+{% extends 'baseframe.html' %}
+{% block content %}
+<div>
+    <input type="button" id="btnAddTr" onclick="AddTr()" value="添加行"/>
+    <input type="button" id="btnSave" onclick="SaveInfo()" value="保存"/>
+    <table id="firsttb">
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>年龄</td>
+                <td>联系方式</td>
+                <td>地址</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody id="datalist">
+            <tr>
+                <td>蝈蝈</td>
+                <td>18</td>
+                <td>18233177777</td>
+                <td><input type="text" name="address" value="" /></td>
+                <td><a name="removetr" onclick="RemoveTr(this)">删除</a></td>
+            </tr>
+            <tr>
+                <td>果果</td>
+                <td>16</td>
+                <td>18233188888</td>
+                <td><input type="text" name="address" value="" /></td>
+                <td><a name="removetr" onclick="RemoveTr(this)">删除</a></td>
+            </tr>
+            <tr>
+                <td>郭郭</td>
+                <td>18</td>
+                <td>18233199999</td>
+                <td><input type="text" name="address" value="" /></td>
+                <td><a name="removetr" onclick="RemoveTr(this)">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+    function RemoveTr(_this) {
+        var $trNode = $(_this).parent().parent();
+        var textContext = $trNode.find("td:first").text().trim();
+        var flag = confirm("确定删除\"" + textContext + "\"吗？");
+        if (flag) {
+            $trNode.remove();
+        }
+    }
+</script>
+{% endblock %}

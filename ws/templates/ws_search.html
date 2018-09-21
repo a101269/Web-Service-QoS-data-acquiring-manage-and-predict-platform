@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="/static/css/search.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                WEB服务搜素</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">WEB服务管理</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">WEB服务搜素</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">WEB服务搜素</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div><h2 style="text-align:center">WEB服务搜索</h2></div>
+<div class="index-search" style="margin-left:25%;margin-top: 50px; width: 600px;">
+      <form method="get" action="/webservice/dosearch/1/">{% csrf_token %}
+      <div class="input-group">
+          <input type="search"  required class="form-control" name="q" size="20" id="baidusearch">
+          <span class="input-group-btn">
+              <button class="btn btn-info" type="submit">搜索</button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript">
+    	//绑定输入框，这里只能 是ID
+    $("#baidusearch").keydown(function(event){
+      event=document.all?window.event:event;
+      if((event.keyCode || event.which)==13){
+      }
+    });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

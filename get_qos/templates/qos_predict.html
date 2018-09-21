@@ -1,0 +1,78 @@
+<link rel="stylesheet" type="text/css" href="/static/css/wsurl.css" />
+{% extends 'bootemp.html' %}
+{% block title %}QoS预测{% endblock %}
+{% block subtit %}
+    <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+        <div class="page-header pull-left">
+            <div class="page-title">
+                QoS预测</div>
+        </div>
+        <ol class="breadcrumb page-breadcrumb pull-right">
+            <li><i class="fa fa-home"></i>&nbsp;<a href="#">QoS预测</a>&nbsp;&nbsp;<i
+                    class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="hidden"><a href="#">参数设置</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+            <li class="active">参数设置</li>
+        </ol>
+        <div class="clearfix">
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+          <div id="generalTabContent" class="tab-content">
+              <div id="tab-edit" class="tab-pane fade in active">
+{#                  <form action="#" class="form-horizontal">#}
+                  <form class="form-horizontal" action="/predict/" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                      <hr/>
+                      <h3>参数设置</h3>
+                      <div class="form-group"><label class="col-sm-3 control-label">服务类型：</label>
+                          <div class="col-sm-9 controls">
+                              <div class="row">
+                                   <div class="col-xs-4"><select class="form-control" name="type">
+                                       <option value="天气"selected>天气</option>
+                                       <option value="新闻">新闻</option>
+                                       <option value="菜谱">菜谱</option>
+                                       <option value="企业查询">企业查询</option>
+                                       <option value="身份核验">身份核验</option>
+                                       <option value="交通查询">交通查询</option>
+                                        </select>
+                                   </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-sm-3 control-label">网速：</label>
+                          <div class="col-sm-9 controls">
+                              <div class="row">
+                                  <div class="col-xs-4"><input id="datepicker-normal" type="text" class="form-control" name="bandwidth" placeholder="Mb/s"/></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-sm-3 control-label">任务量：</label>
+                          <div class="col-sm-9 controls">
+                              <div class="row">
+                                  <div class="col-xs-4"><input id="datepicker-normal" type="text" class="form-control"  name="workload" placeholder="Kb"/></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-sm-3 control-label">WEB服务地址:</label>
+
+                          <div class="col-sm-9 controls">
+                              <div class="row">
+                                  <div class="col-xs-9"><input type="text" placeholder="URL" class="form-control"/></div>
+                              </div>
+                          </div>
+                      </div>
+                     <hr>
+                      <button type="submit" class="btn btn-blue  btn-block">开始预测</button>
+                  </form>
+              </div>
+
+
+
+
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/ebmagage.js"></script>
+<div style="text-align:center;">
+</div>
+{% endblock %}
+
+

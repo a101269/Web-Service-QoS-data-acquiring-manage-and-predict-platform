@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="/static/css/login_info.css" />
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="zhe"> </div>
+       <div class="outbox">
+{#        <div><span class="coll">收藏</span></div>#}
+    <div class="panel panel-blue" style="background:#fff;">
+ <div class="panel-heading">
+     注册</div>
+     <div class="panel-body pan">
+<div class="in">
+	<form method="post" action=".">
+		{% if form.errors %}
+			{% include "users/partials/errors.html" %}
+		{% endif %}
+		{% csrf_token %}
+		{% for field in form %}
+{#            <br>#}
+			{% include "users/partials/field.html" %}
+		{% endfor %}
+{#    <br>#}
+		<div id="login" class="button-wrapper submit" >
+			<input style="margin-bottom:10px;margin-top: 20px" class="btn btn-blue" type="submit" value="{% trans '注册' %}" />
+		</div>
+	</form>
+</div>
+     </div>
+    </div>
+       </div>
+{% endblock %}
